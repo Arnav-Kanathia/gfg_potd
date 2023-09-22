@@ -1,0 +1,23 @@
+class Solution
+{
+    public:
+    int first_occurence(int arr[], int low, int high, int x){
+        while(low<=high){
+            int mid = low + (high-low)/2;
+            if(arr[mid] >= x) high = mid-1;
+            else low = mid+1;
+        } 
+        return low;
+    }
+    
+    vector<int> find(int arr[], int n , int x )
+    {
+        int low = 0, high = n-1;
+        
+        int id1 = first_occurence(arr, low, high, x);
+        int id2 = first_occurence(arr, low, high, x+1)-1;
+        
+        if(id1>=0 && id1<n && arr[id1] == x) return {id1, id2};
+        return {-1,-1};
+    }
+};
