@@ -1,0 +1,23 @@
+//User function teamplate for C++
+
+class Solution {
+public:
+    vector<int> printClosest(int arr[], int brr[], int n, int m, int x) {
+        int i = 0, j = m-1;
+        int diff = INT_MAX;
+        int ek, doo;
+        
+        while (i < n && j >= 0) {
+            int temp = abs(x - (arr[i] + brr[j]));  // Add parentheses here
+            if (temp < diff) {
+                diff = temp;
+                ek = arr[i];
+                doo = brr[j];
+            }
+            if (arr[i] + brr[j] < x) i++;
+            else j--;
+        }
+        
+        return { ek, doo };
+    }
+};
