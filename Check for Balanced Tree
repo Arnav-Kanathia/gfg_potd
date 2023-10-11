@@ -1,0 +1,19 @@
+class Solution{
+    public:
+    int func(Node* root, bool& ans){
+        if(!root) return 0;
+        
+        int lh = func(root->left, ans);
+        int rh = func(root->right, ans);
+        
+        if(abs(lh-rh)>1) ans = false;
+        return 1 + max(lh, rh);
+    }
+    
+    bool isBalanced(Node *root)
+    {
+        bool ans = true;
+        int height = func(root, ans);
+        return ans;
+    }
+};
