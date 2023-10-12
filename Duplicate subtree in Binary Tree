@@ -1,0 +1,17 @@
+class Solution {
+    unordered_map<string, int> umap;
+  public:
+    string serialize(Node* root, int& ans){
+        if(!root) return "N";
+        string res = to_string(root->data) + ',' + serialize(root->left, ans) + ',' + serialize(root->right, ans);
+        umap[res]++;
+        if(umap[res] == 2 && (root->left != NULL || root->right != NULL)) ans = 1;
+        return res;
+    }
+    
+    int dupSub(Node *root) {
+         int ans = 0;
+         serialize(root, ans);
+         return ans;
+    }
+};
