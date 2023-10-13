@@ -1,0 +1,21 @@
+class Solution{
+
+public:
+    void func(Node* root, int x, int& ans){
+        if(!root) return;
+        
+        if(root->data <= x) {
+            ans = max(ans, root->data);
+            func(root->right, x, ans);
+        }
+        else func(root->left, x, ans);
+    }
+    
+    int floor(Node* root, int x) {
+        int ans = INT_MIN;
+        func(root, x, ans);
+        
+        if(ans == INT_MIN) return -1;
+        return ans;
+    }
+};
