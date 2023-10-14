@@ -1,0 +1,36 @@
+class Solution
+{
+    public:
+    void inorder(Node* root, vector<int>& temp){
+        if(!root) return;
+        
+        inorder(root->left, temp);
+        temp.push_back(root->data);
+        inorder(root->right, temp);
+    }
+    
+    vector <int> findCommon(Node *root1, Node *root2)
+    {
+     vector<int> temp1;
+     inorder(root1, temp1);
+     
+     vector<int> temp2;
+     inorder(root2, temp2);
+     
+     int i = 0, j = 0;
+     int n = temp1.size();
+     int m = temp2.size();
+     vector<int> ans;
+     
+     while(i<n && j<m){
+         if(temp1[i] == temp2[j]){
+            ans.push_back(temp1[i]);
+            i++; j++;
+         } 
+         else if(temp1[i]<temp2[j]) i++;
+         else j++;
+     }
+     
+     return ans;
+    }
+};
