@@ -1,0 +1,37 @@
+class Solution{
+    
+    public:
+    
+    void traversal(Node* root, vector<int>& inorder){
+        if(!root) return;
+        
+        traversal(root->left, inorder);
+        inorder.push_back(root->data);
+        traversal(root->right, inorder);
+    }
+    
+    Node* answer(vector<int> inorder){
+        int n = inorder.size();
+        if(n == 0) return NULL;
+        
+        int mid = n/2;
+        Node* root = new Node(inorder[mid]);
+        
+        vector<int> lv(inorder.begin(), inorder.begin()+mid);
+        vector<int> rv(inorder.begin()+mid+1, inorder.end());
+        
+        root->left = answer(lv);
+        root->right = answer(rv);
+        
+        return root;
+    }
+    
+    Node* buildBalancedTree(Node* root)
+    {
+    	vector<int> inorder;
+    	traversal(root, inorder);
+    	
+    	Node* ans = answer(inorder);
+    	return ans;
+    }
+};
