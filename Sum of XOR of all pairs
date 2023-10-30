@@ -1,0 +1,21 @@
+    public:
+    // Returns sum of bitwise OR
+    // of all pairs
+    long long int sumXOR(int arr[], int n)
+    {
+        long long int ans = 0;
+        for (int i = 0; i < 32; i++) { // 32 bits for int
+            int countZeros = 0;
+            int countOnes = 0;
+            for (int j = 0; j < n; j++) {
+                if (arr[j] & (1 << i)) {
+                    countOnes++;
+                } else {
+                    countZeros++;
+                }
+            }
+            ans += (long long)(1LL * countOnes * countZeros * (1 << i)); // Counting the XOR for this bit
+        }
+        return ans;
+    }
+};
