@@ -1,0 +1,22 @@
+class Solution {
+public:
+    Node* reverseDLL(Node* head) {
+        if (!head || !(head->next)) {
+            return head; // If list is empty or has only one node
+        }
+        
+        Node* current = head;
+        Node* previous = nullptr;
+        
+        while (current != nullptr) {
+            Node* nextNode = current->next;
+            current->prev = nextNode; // Swap prev and next pointers
+            current->next = previous;
+            previous = current;
+            current = nextNode;
+        }
+        
+        head = previous; // Update head to point to the new head of the reversed list
+        return head;
+    }
+};
