@@ -1,0 +1,48 @@
+class Solution {
+public:
+    void listGenerator(TreeNode* root, vector<vector<int>>& adj){
+        if(!root) return;
+
+        int x = root->val;
+
+        if(root->left){
+            int l = root->left->val;
+            adj[x].push_back(l);
+            adj[l].push_back(x);
+            listGenerator(root->left, adj);
+        }
+
+        if(root->right){
+            int r = root->right->val;
+            adj[x].push_back(r);
+            adj[r].push_back(x);
+            listGenerator(root->right, adj);
+        }
+    }
+
+    int amountOfTime(TreeNode* root, int start) {
+        vector<vector<int>> adj(100001);
+        listGenerator(root, adj);
+
+        queue<pair<int, int>> q;
+        vector<int> vis(100001, 0);
+        q.push({start, 0});
+        vis[start] = 1;
+        int ans = 0;
+
+        while(!q.empty()){
+            int temp = q.front().first;
+            int dis = q.front().second;
+            ans = max(ans, dis);
+            q.pop();
+            for(auto it:adj[temp]){
+                if(!vis[it]){
+                    q.push({it, dis+1});
+                    vis[it] = 1;
+                }
+            }
+        }
+
+        return ans;
+    }
+};
